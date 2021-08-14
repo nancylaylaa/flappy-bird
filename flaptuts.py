@@ -8,7 +8,17 @@ clock = pygame.time.Clock() # used for fps setting
 FPS = 120 
 # end1
 
-# 2 loop
+# 2 memuat gambar
+# image load untuk memuat gambar
+# convert atau convert_alpha (sama aja) untuk membuat surface compatible dengan format pygame agar tidak berat saat update surface
+bg_surface = pygame.image.load('assets/background-day.png').convert()
+bird_downflap = pygame.image.load('assets/bluebird-downflap.png').convert_alpha()
+bird_midflap = pygame.image.load('assets/bluebird-midflap.png').convert_alpha()
+bird_upflap = pygame.image.load('assets/bluebird-upflap.png').convert_alpha()
+# get_rect untuk menentukan posisi aset dengan argumen center
+bird_rect = bird_surface.get_rect(center = (50,256))
+
+# 3 loop
 # main loop of game infinite loop
 while True:
     clock.tick(FPS)
@@ -16,12 +26,11 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-            
-    # fill the background with white
-    SCREEN.fill((255,255,255))
-
-    # draw a solid blue circle in the center
-    pygame.draw.circle(SCREEN,(0,0,255),(144,256),75)
+    
+    # SCREEN untuk menentukan apa yang akan ditampilkan pada surface sesuai urutan code
+    # SCREEN.blit akan menampilkan aset gambar dengan argumen aset, posisi
+    SCREEN.blit(bg_surface,(0,0))
+    SCREEN.blit(bird_downflap,bird_rect)
     
     # update pygame
     pygame.display.update()
