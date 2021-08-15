@@ -18,7 +18,12 @@ bird_upflap = pygame.image.load('assets/bluebird-upflap.png').convert_alpha()
 # get_rect untuk menentukan posisi aset dengan argumen center
 bird_rect = bird_surface.get_rect(center = (50,256))
 
-# 3 loop
+# 3 menambahkan fungsi matematika
+start = False
+bird_movement = 0
+gravity = 0.1 # pixel FPS
+
+# 4 loop
 # main loop of game infinite loop
 while True:
     clock.tick(FPS)
@@ -26,6 +31,18 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            # mendeteksi tombol spasi yang dijalankan
+            if event.key == pygame.K_SPACE and not start:
+                start=True
+            # tombol spasi untuk melompat
+            if event.key == pygame.K_SPACE and start:
+                bird_movement = -5 
+     # burung bergerak ke bawah karena gravitasi           
+     if start:
+        bird_movement += gravity
+        bird_rect.centery += bird_movement
+        
     
     # SCREEN untuk menentukan apa yang akan ditampilkan pada surface sesuai urutan code
     # SCREEN.blit akan menampilkan aset gambar dengan argumen aset, posisi
@@ -34,3 +51,6 @@ while True:
     
     # update pygame
     pygame.display.update()
+
+
+
